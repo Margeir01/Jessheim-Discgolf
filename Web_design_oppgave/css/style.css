@@ -1,0 +1,943 @@
+:root{
+  --bg: #f5f1e6;
+  --ink: #3a4a2d;
+  --accent: #a35028;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+
+body{
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+/* HEADER */
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 3px solid var(--ink);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 100;
+}
+
+.burger {
+  font-size: 26px;
+  line-height: 1;
+  background: transparent;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  /* Smooth overgang på ALT */
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.burger:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: scale(1.07); /* litt mykere zoom */
+}
+
+.burger.active {
+  background: var(--accent);   /* brun */
+  color: var(--bg);
+  border-color: var(--accent);
+
+  /* smooth "pop in" */
+  transform: scale(0.93);
+}
+
+
+
+/* LOGO GRUPPE (bilde + navn) */
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+.logo img{
+  height: 40px;
+  width: auto;
+  display: block;
+}
+@media (min-width: 900px){
+  .logo img{ height: 52px; }
+}
+
+/* INNHOLD */
+.content{
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 32px;
+}
+
+/* KORT / FORSIDE */
+.cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  margin-top: 32px;
+}
+.card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--bg);
+  text-align: center;
+  padding: 20px 24px;
+  font-size: 20px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.25);
+  transition: transform .25s ease, background .3s ease;
+}
+.card:hover{
+  background: var(--ink);
+  transform: scale(1.05);
+}
+
+/* MOBILMENY */
+.mobile-nav {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+  background: var(--bg);
+  border-bottom: 2px solid var(--ink);
+  padding: 0 16px; /* ingen topp/bunn når lukket */
+}
+
+.mobile-nav.open {
+  max-height: 260px;  /* nok til alle lenker */
+  opacity: 1;
+  padding: 12px 16px; /* får tilbake luft */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.nav-link{
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+}
+.nav-link:hover{ color: var(--accent); }
+.nav-link:active{ color: var(--accent); }
+
+/* KONTAKTSIDE */
+.kontakt h1{
+  margin: 0 0 8px 0;
+  font-size: 28px;
+}
+.kontakt .intro{
+  margin: 0 0 24px 0;
+  opacity: .9;
+}
+
+.contact-grid{
+  display: grid;
+  gap: 24px;
+}
+@media (min-width: 800px){
+  .contact-grid{
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+.contact-card{
+  background: var(--bg);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.15);
+}
+.contact-card h2{
+  margin: 0 0 12px 0;
+  font-size: 20px;
+}
+
+/* Info-liste */
+.info-list{
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+.info-list li{
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--ink);
+}
+.info-list li:last-child{ border-bottom: 0; }
+.info-list a{ color: var(--ink); text-decoration: underline; }
+
+/* Knapper */
+.btn-row{
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn{
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  border: 2px solid var(--ink);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .15s ease, background .2s ease;
+}
+.btn:hover{ background: var(--ink); transform: translateY(-1px); }
+.btn-outline{
+  background: transparent;
+  color: var(--ink);
+}
+.btn-outline:hover{ background: var(--ink); color: var(--bg); }
+
+/* RESPONSIVT KART */
+.kart-container{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.kart-container iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+.map-details {
+  text-align: left;
+}
+.map-details summary {
+  list-style: none;
+  cursor: pointer;
+  outline: none;
+}
+.map-details summary::-webkit-details-marker { display: none; }
+
+
+.map-details .btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  border: 2px solid var(--ink);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .15s ease, background .2s ease;
+}
+.map-details [open] .btn {
+  background: var(--ink);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+
+.map-details .kart-container {
+  margin-top: 12px;
+}
+
+.kontakt .contact-card { text-align: center; }
+
+.kontakt .info-list {
+  list-style: none;
+  max-width: 520px;
+  margin: 0 auto 16px;
+  text-align: left;
+}
+.kontakt .info-list li + li { margin-top: 6px; }
+
+.map-details { text-align: center; }
+.map-details summary { list-style: none; cursor: pointer; }
+.map-details summary::-webkit-details-marker { display: none;  }
+.map-details[open] .btn { background: var(--ink); color: var(--bg); transform: translateY(-1px); }
+.map-details .kart-container { margin-top: 12px; }
+
+.header { position: sticky; top: 0; z-index: 100; background: var(--bg); }
+.mobile-nav { position: relative; z-index: 90; }
+
+
+.about .hero {
+  margin-bottom: 24px;
+}
+.about .lead {
+  max-width: 720px;
+  margin: 8px auto 0;
+  opacity: .9;
+}
+
+.about-grid {
+  display: grid;
+  gap: 24px;
+}
+@media (min-width: 900px){
+  .about-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.about-card {
+  background: var(--bg);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.15);
+  text-align: left;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.chip {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  border: 2px solid var(--ink);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.about-cta {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+flex-wrap: wrap;
+}
+
+.burger {
+  background: var(--accent);
+  color: var(--bg);
+  border: 2px solid var(--ink);
+  transition: all 0.2s ease;
+}
+
+.burger.active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+  transform: scale(0.95);
+}
+
+.burger:active {
+  transform: scale(0.95);
+}
+
+.nav-link.active {
+  color: var(--bg);
+  background: var(--accent);
+  border: 2px solid var(--ink);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.home-map {
+max-width: 800px;
+margin: 28px auto 0;
+text-align: center;
+}
+.home-map h2 { margin: 0 0 12px; }
+
+.site-footer {
+  max-width: 1200px;
+  margin: 40px auto 24px;
+  padding: 12PX 16px;
+  opacity: .8;
+  border-top: 2px solid var(--ink);
+  text-align: center;
+}
+
+.map-details summary.btn:hover,
+.map-details summary.btn:focus-visible {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+  transform: scale(1.03);;
+}
+.map-details[open] summary.btn {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* 1) Kutt horisontal scroll på mobil, uansett årsak */
+html, body { overflow-x: hidden; }
+
+/* 2) Litt strammere padding på små skjermer */
+@media (max-width: 420px){
+  .content { padding: 0 16px; }
+}
+
+/* 3) Gjør kort-grid mer fleksibel på smale skjermer */
+.cards{
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* 4) Sørg for at media aldri stikker utenfor */
+img, iframe { max-width: 100%; height: auto; display: block; }
+
+/* 5) Hover-zoom kun på desktop, ikke på mobil (hindrer “bredding” ved berøring) */
+@media (hover: hover) and (pointer: fine){
+  .card:hover{ transform: scale(1.05); }
+}
+
+/* 6) Footer: liten typo som kan lage rare målinger (PX -> px) */
+.site-footer { padding: 12px 16px; }
+
+
+.hero {
+  position: relative;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  overflow:hidden;
+  margin-bottom: 28px;
+}
+.hero-img {
+  width: 100%;
+  height: clamp(260px, 40vh, 480px);
+  object-fit: cover;
+  display: block;
+  filter: brightness(70%);
+}
+.hero-text {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--bg);
+  padding: 12px;
+}
+.hero-text h1 {
+  margin: 0 0 6px;
+  font-size: clamp(24px, 4.5vw, 40px);
+}
+.hero-text .lead {
+  margin: 0 0 16px;
+  opacity: .95;
+}
+.hero-cta {
+  display: inline-flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* === FORSIDE: to små bilder === */
+.gallery {
+  margin-top: 48px;
+  text-align: center;
+}
+.gallery h2 {
+  margin: 0 0 20px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+}
+
+.front-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.front-gallery img {
+  width: clamp(180px, 40%, 280px);
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 3px 6px rgba(0,0,0,.15);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+@media (hover: hover) and (pointer: fine){
+  .front-gallery img:hover {
+    transform: scale(1.04);
+    box-shadow: 4px 6px 10px rgba(0,0,0,.25);
+  }
+}
+
+/* "Se flere"-knappen under */
+.gallery-link {
+  text-align: center;
+  margin-top: 24px;
+}
+.gallery-link .btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  border: 2px solid var(--ink);
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all .25s ease;
+}
+.gallery-link .btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: scale(1.05);
+}
+
+/* === GALLERI-SIDE: masonry med luft === */
+.gallery-page {
+  margin-top: 48px;
+  text-align: center;
+}
+.gallery-page h1, 
+.gallery-page h2 {
+  margin: 0 0 20px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+}
+
+.gallery-masonry {
+  column-count: 1;
+  column-gap: 16px;     /* mer luft i smalt vindu */
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 0 8px;       /* litt side-luft på mobil */
+}
+
+.gallery-masonry img {
+  width: 100%;
+  margin-bottom: 16px;  /* vertikal luft mellom bilder */
+  border-radius: 12px;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 3px 8px rgba(0,0,0,.2);
+  display: block;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+@media (hover: hover) and (pointer: fine){
+  .gallery-masonry img:hover {
+    transform: scale(1.02);
+    box-shadow: 4px 6px 12px rgba(0,0,0,.25);
+  }
+}
+
+/* fler kolonner med mer spacing når skjermen vokser */
+@media (min-width: 700px){
+  .gallery-masonry { column-count: 2; column-gap: 20px; }
+}
+@media (min-width: 1000px){
+  .gallery-masonry { column-count: 3; column-gap: 24px; }
+}
+
+
+
+/* === TILBAKE-KNAPP (SAMME STIL SOM FORSIDEN) === */
+.btn-back {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  border: 3px solid var(--ink);
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 20px;             /* matcher forsiden */
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .25s ease, background .3s ease;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.btn-back:hover {
+  background: var(--ink);       /* grønn ved hover */
+  color: var(--bg);
+  transform: scale(1.05);
+}
+
+/* midtstiller kun knappen, ikke resten */
+.btn-back-wrapper {
+  text-align: center;
+  width: 100%;
+}
+
+/* Smooth transitions på tema-bytt */
+html, body, .header, .mobile-nav, .contact-card, .about-card, .card, .site-footer,
+.hero, .hero-text, .gallery-grid img, .btn, .btn-outline, .btn-back {
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+/* Standard (light) – du har allerede disse i :root, men vi samler dem her for tydelighet */
+:root {
+  --bg: #f5f1e6;   /* bakgrunn lys */
+  --ink: #3a4a2d;  /* tekst/grønn */
+  --accent: #a35028; /* brun */
+}
+
+/* Auto dark mode hvis bruker har det på systemet */
+  
+  .card { box-shadow: 2px 3px 8px rgba(0,0,0,.5); }
+  .gallery-grid img { box-shadow: 2px 3px 8px rgba(0,0,0,.45); }
+
+/* Manuell override via data-theme på <html> */
+html[data-theme="light"] {
+  --bg: #f5f1e6;
+  --ink: #3a4a2d;
+  --accent: #a35028;
+}
+
+/* Tema-knappen i header */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.theme-toggle:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* Små justeringer for mørk bakgrunn på enkelte kort */
+.contact-card, .about-card, .card, .hero {
+  background: var(--bg);
+  border-color: var(--ink);
+}
+
+/* variabel */
+:root { --on-accent: #f5f1e6; }                 /* lys tekst i light */
+@media (prefers-color-scheme: dark) {
+  :root { --on-accent: #e9e3d3; }               /* lys krem i dark */
+}
+html[data-theme="dark"] { --on-accent: #e9e3d3; }  /* respekter manuell toggle */
+
+/* bruk på elementer med brun/grønn bakgrunn */
+.card, .btn { color: var(--on-accent); }
+
+/* Tekstfarge som alltid funker oppå accent-bakgrunn (kort/knapper) */
+:root { --on-accent: #f5f1e6; }                          /* lys krem i light */
+@media (prefers-color-scheme: dark) { 
+  :root { --on-accent: #e9e3d3; }                        /* lys krem i dark */
+}
+html[data-theme="dark"] { --on-accent: #e9e3d3; }        /* respekter manuell toggle */
+
+/* --- Brune kort som matcher knappene --- */
+.card {
+  background: var(--accent);           /* brun bakgrunn */
+  color: var(--bg);                    /* lys tekst */
+  border: 3px solid var(--ink);        /* grønn kant */
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.25s ease;
+}
+
+/* Hover-effekt: grønn bakgrunn + lys tekst */
+.card:hover {
+  background: var(--ink);              /* grønn bakgrunn */
+  color: var(--bg);                    /* lys tekst */
+  transform: scale(1.05);
+}
+
+/* Sikrer at lenker alltid har riktig farge */
+.card:link,
+.card:visited {
+  color: var(--bg);
+  text-decoration: none;
+}
+
+/* ===== Dark mode patch (minimal endring andre steder) ===== */
+
+/* nye variabler */
+:root{
+  --text: var(--ink);        /* standard tekst (arver grønn i light) */
+  --on-accent: #f5f1e6;      /* lys tekst oppå brun/grønn i light */
+}
+
+/* bruk --text som base-tekstfarge */
+body { color: var(--text); }
+
+/* brune kort med riktig tekst + hover */
+.card{
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 3px solid var(--ink);
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  transition: background .3s ease, color .3s ease, transform .25s ease, box-shadow .25s ease;
+}
+.card:hover{
+  background: var(--ink);      /* grønn */
+  color: var(--on-accent);
+  transform: scale(1.05);
+  box-shadow: 4px 6px 12px rgba(0,0,0,.25);
+}
+
+/* knapper og "tilbake"-knapp: samme kontrast som kort */
+.btn, .btn-back{
+  color: var(--on-accent);
+  border: 2px solid var(--ink);
+}
+.btn:hover, .btn-back:hover{
+  background: var(--ink);
+  color: var(--on-accent);
+}
+
+/* mørk modus: endre bare bakgrunn/tekst + on-accent, behold grønn (--ink) */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #171717;          /* bakgrunn mørk */
+    --text: #e9e3d3;        /* base-tekst lys */
+    --accent: #b8683d;      /* litt lysere brun for kontrast */
+  }
+  .card{ box-shadow: 2px 3px 8px rgba(0,0,0,.5); }
+  .mobile-nav.open{ box-shadow: 0 10px 18px rgba(0,0,0,.35); }
+}
+
+/* manuell override fra tema-knappen */
+html[data-theme="dark"]{
+  --bg: #171717;
+  --text: #e9e3d3;
+  --accent: #b8683d;
+}
+html[data-theme="light"]{
+  --bg: #f5f1e6;
+  --text: var(--ink);
+  --accent: #a35028;
+}
+
+/* header/nav/kort følger bakgrunn og kantfarger automatisk */
+.header, .mobile-nav, .contact-card, .about-card, .hero{
+  background: var(--bg);
+  border-color: var(--ink);
+}
+
+/* tema-knappen lesbar i begge tema */
+.theme-toggle{
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--ink);
+}
+.theme-toggle:hover{
+  background: var(--ink);
+  color: var(--on-accent);
+}
+
+/* === MEDLEMSSEKSJON === */
+.member-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.member-section h2 {
+  margin-bottom: 12px;
+}
+
+.member-text {
+  max-width: 640px;
+  margin: 0 auto 20px;
+  opacity: .9;
+}
+
+.member-box {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: 2px 3px 8px rgba(0,0,0,.15);
+}
+
+.member-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+.member-list li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--ink);
+}
+
+.member-list li:last-child {
+  border-bottom: none;
+}
+
+/* knappen arver eksisterende .btn-stil, men vi sentrerer den */
+.member-box .btn {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* Mer luft før medlemsseksjonen */
+.member-section {
+  margin-top: 80px;   /* økt fra 40px */
+}
+
+/* Litt mer luft inni boksen også, hvis ønskelig */
+.member-box {
+  padding: 24px 24px;  /* var 18px */
+  margin-top: 24px;    /* litt ekstra luft mellom tekst og boksen */
+}
+
+/* Mer luft før medlemsseksjonen */
+.member-section {
+  margin-top: 80px;   /* var 0 → nå god luft */
+  margin-bottom: 60px;
+}
+
+/* Mer luft inni selve boksen */
+.member-box {
+  padding: 32px 36px;   /* større og luftigere */
+}
+
+/* Mer avstand mellom medlemsboksen og om-oss-kortene under */
+.about-grid {
+  margin-top: 60px;  /* var veldig tight før */
+}
+
+/* Litt større tekstavstand i medlemslista */
+.member-box ul li {
+  margin-bottom: 14px;
+}
+
+/* === 404 RUNNER-GAME === */
+
+.not-found {
+  text-align: center;
+}
+
+.not-found h1 {
+  margin-bottom: 8px;
+}
+
+.not-found p {
+  margin-bottom: 24px;
+}
+
+/* Selve spillboksen */
+#runner-game {
+  position: relative;
+  max-width: 600px;
+  height: 200px;
+  margin: 0 auto 16px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: #e8ddc6;
+  overflow: hidden;
+  box-shadow: 2px 3px 8px rgba(0,0,0,.2);
+}
+
+/* Bakke */
+#runner-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  height: 4px;
+  background: var(--ink);
+}
+
+/* Spiller */
+#runner-player {
+  position: absolute;
+  left: 40px;
+  bottom: 34px;
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+}
+
+/* Hinder */
+#runner-obstacle {
+  position: absolute;
+  bottom: 34px;
+  width: 22px;
+  height: 40px;
+  right: -40px; /* starter utenfor */
+  background: var(--ink);
+  border-radius: 4px;
+}
+
+/* Game over / score-tekst */
+#runner-message {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Hopp-animasjon */
+@keyframes runnerJump {
+  0%   { bottom: 34px; }
+  40%  { bottom: 110px; }
+  60%  { bottom: 110px; }
+  100% { bottom: 34px; }
+}
+
+.runner-jumping {
+  animation: runnerJump 0.45s ease-out;
+}
+
+/* Hinder-bevegelse */
+@keyframes runnerObstacleMove {
+  0%   { right: -40px; }
+  100% { right: 640px; } /* langt forbi spillboksen */
+}
+
+.runner-moving {
+  animation-name: runnerObstacleMove;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* selve farten (animation-duration) styrer vi i JS */
+}
+
+
+/* Restart-knapp på 404 */
+#runner-restart {
+  margin-bottom: 16px;
+}
